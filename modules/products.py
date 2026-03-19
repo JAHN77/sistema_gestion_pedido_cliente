@@ -1,4 +1,4 @@
-import validation as val
+import utils.validation as val
 
 # Orchestrates the creation of a product by requesting and validating user input.
 # Collects: ID (int), Name (string), and Price (float).

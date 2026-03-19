@@ -1,5 +1,5 @@
 import data.storage
-import validation as val
+import utils.validation as val
 
 def register_or_update():
 
