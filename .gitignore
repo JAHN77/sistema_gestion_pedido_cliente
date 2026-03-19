@@ -1,0 +1,10 @@
+# modules created by import or execution
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+
+
+
