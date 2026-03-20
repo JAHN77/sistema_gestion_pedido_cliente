@@ -1,0 +1,3 @@
+customers = {}
+products = {}
+orders = {}
