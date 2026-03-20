@@ -28,19 +28,14 @@ def create_order(orders, customers, products, order_id, customer_id, product_id,
     return True, orders
 
 def get_orders(orders):
-    """
-    Retrieves the current state of the orders dictionary.
-    Returns a warning string if the dictionary is empty.
-    """
+
     if not orders:
         return "No registered orders found."
 
     return orders
 
 def register_order():
-    """
-    UI/Orchestrator: Requests user input, validates it, and triggers order creation.
-    """
+
     # Auto-generate Order ID based on current list size
     order_id = len(orders) + 1
 
@@ -59,8 +54,6 @@ def register_order():
     print(result)
     
 def show_orders():
-    """
-    Simple wrapper to display all orders in the console.
-    """
+
     result = get_orders(orders)
     print(result)
