@@ -4,6 +4,20 @@ import utils.validation as val
 def register_or_update():
     # 1. Captura de datos
     customer_id = val.request_data("ID del cliente (número): ", val.validate_int)
+    if customer_id in data.storage.customers:
+        print(f"el cliente con ID {customer_id} si existe")
+        confirm = input("Quieres actulizar los datos del cliente? (s/n)")
+        if confirm != 's':
+            print ("Operacion cancelada")
+            return False
+    else:
+        print(f"El cliente con ID {customer_id} no existe.")
+        # --- NUEVA PREGUNTA AQUÍ ---
+        confirm_new = input("¿Deseas registrarlo como un nuevo cliente? (s/n): ").lower()
+        if confirm_new != 's':
+            print("Operación cancelada.")
+            return False
+
     customer_name = val.request_data("Nombre del cliente: ", val.validate_string)
     customer_email = val.request_data("Correo electrónico: ", val.validate_email)
 
