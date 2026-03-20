@@ -1,12 +1,23 @@
 import utils.validation as val
+from data.storage import products
 
-# Orquestador para la creación de un producto solicitando y validando las entradas del usuario.
-# Captura: ID (entero), Nombre (cadena) y Precio (decimal).
-# Retorna una tupla con (product_id, product_name, unit_price).
+# Orchestrator for product creation by requesting and validating user inputs.
+# Captures: ID (integer), Name (string), and Price (float/decimal).
+# Returns a tuple with (product_id, product_name, unit_price).
 def product_creation():
     
-    product_id = val.request_data("Ingresa el ID del producto: ", val.validate_int)
-    product_name = val.request_data("Ingresa el nombre del producto: ", val.validate_string)
-    unit_price = val.request_data("Ingresa el precio unitario del producto: ", val.validate_float)
+    product_id = val.request_data("Enter product ID: ", val.validate_int)
+    product_name = val.request_data("Enter product name: ", val.validate_string)
+    unit_price = val.request_data("Enter product unit price: ", val.validate_float)
     
     return (product_id, product_name, unit_price)
+
+def register_product():
+    product = product_creation()
+    
+    # Check if the product ID (index 0 of the tuple) already exists in the storage
+    if product[0] in products:
+        print("This product already exists.")
+    else:
+        products[product[0]] = product
+        print("Product registered successfully:", product)

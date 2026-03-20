@@ -1,37 +1,66 @@
-def create_order(orders, customers, products, order_id, customer_id, product_id, quantity):
-    """
-    Funcionalidad 3: Registra un nuevo pedido usando diccionarios y tuplas.
-    Calcula automáticamente el total.
-    """
-    # Validar que el cliente y el producto existan en los diccionarios de los compañeros
-    if customer_id not in customers:
-        return False, "Error: Cliente no encontrado."
-    
-    if product_id not in products:
-        return False, "Error: Producto no encontrado."
+from data.storage import orders, customers, products
+import utils.validation as val
 
-    # Obtener información del producto (asumiendo tupla: id, nombre, precio)
+def create_order(orders, customers, products, order_id, customer_id, product_id, quantity):
+
+    # Verify if the customer exists in the database
+    if customer_id not in customers:
+        return False, "Error: Customer not found."
+
+    # Verify if the product exists in the database
+    if product_id not in products:
+        return False, "Error: Product not found."
+
+    # Extract product details (Tuple format: ID, Name, Price)
     product_info = products[product_id]
     unit_price = product_info[2]
     product_name = product_info[1]
-    
-    # Obtener nombre del cliente (asumiendo diccionario de clientes)
-    customer_name = customers[customer_id]['nombre']
 
-    # Cálculo automático del total (Requerimiento funcional)
+    # Extract customer details
+    customer_name = customers[customer_id]['name']
+
+    # Calculate final transaction amount
     total_order = unit_price * quantity
 
-    # Almacenar en el diccionario de pedidos usando una tupla
+    # Save the order as a tuple in the orders dictionary
     orders[order_id] = (customer_name, product_name, quantity, total_order)
-    
+
     return True, orders
 
 def get_orders(orders):
     """
-    Funcionalidad 4: Permite visualizar los pedidos registrados.
-    Retorna el diccionario para ser procesado por la interfaz.
+    Retrieves the current state of the orders dictionary.
+    Returns a warning string if the dictionary is empty.
     """
     if not orders:
-        return "No hay pedidos registrados."
-    
+        return "No registered orders found."
+
     return orders
+
+def register_order():
+    """
+    UI/Orchestrator: Requests user input, validates it, and triggers order creation.
+    """
+    # Auto-generate Order ID based on current list size
+    order_id = len(orders) + 1
+
+    # Request validated data from the user
+    customer_id = val.request_data("Customer ID: ", val.validate_int)
+    product_id = val.request_data("Product ID: ", val.validate_int)
+    quantity = val.request_data("Quantity: ", val.validate_int)
+
+    # Attempt to process the business logic
+    success, result = create_order(
+        orders, customers, products,
+        order_id, customer_id, product_id, quantity
+    )
+
+    # Print the resulting dictionary or the error message
+    print(result)
+    
+def show_orders():
+    """
+    Simple wrapper to display all orders in the console.
+    """
+    result = get_orders(orders)
+    print(result)
