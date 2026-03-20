@@ -1,19 +1,19 @@
-import data.storage
-import utils.validation as val
+import datos.almacenamiento
+import utilidades.validacion as val
 
-def register_or_update():
+def registrar_o_actualizar():
 
-        # 1. Captura de datos
-    id_customer = val.request_data("ID del cliente (número): ", val.validate_int)
-    name_customer = val.request_data("Nombre del cliente: ", val.validate_string)
-    email_customer = val.request_data("Correo electrónico: ", val.validate_email)
+    # 1. Captura de datos
+    id_cliente = val.solicitar_dato("ID del cliente (número): ", val.validar_int)
+    nombre_cliente = val.solicitar_dato("Nombre del cliente: ", val.validar_string)
+    email_cliente = val.solicitar_dato("Correo electrónico: ", val.validar_email)
 
-        # 2. Estructura del nuevo registro
-    new_data_customer = {
-        "name": name_customer, 
-        "email": email_customer
-        }
+    # 2. Estructura del nuevo registro
+    nuevo_dato_cliente = {
+        "nombre": nombre_cliente, 
+        "email": email_cliente
+    }
 
-    # 3. Guardar en el diccionario de storage
-    data.storage.customers.update({id_customer: new_data_customer})
-    print(f"Cliente {id_customer} registrado/actualizado con éxito.")
+    # 3. Guardar en el diccionario de almacenamiento
+    datos.almacenamiento.clientes.update({id_cliente: nuevo_dato_cliente})
+    print(f"Cliente {id_cliente} registrado/actualizado con éxito.")
