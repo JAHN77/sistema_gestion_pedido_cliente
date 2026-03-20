@@ -18,7 +18,7 @@ The system provides a comprehensive interface to manage the sales cycle of a bus
 The program ensures that each component (Customer, Product, Order) interacts correctly to maintain data integrity.
 
 <p align="center">
-  <img src="doc/Diagram.webp" width="600">
+  <img src="docs/diagram.webp" width="600">
 </p>
 
 ## 🏗️ System Architecture
